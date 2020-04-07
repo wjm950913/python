@@ -1,0 +1,131 @@
+～～～～ssh认证
+1.ssh-keygen 生成密钥对
+
+2.cd到~/.ssh文件夹
+
+3.cat文件id_rsa.pub
+
+git安装
+sudo apt-get install git
+
+～～～～git初始配置
+
+>配置命令:  git config --global [选项]
+>配置文件位置:  ~/.gitconfig
+
+1. 配置用户名
+sudo git config --global user.name wjm
+
+2. 配置用户邮箱
+git config --global user.email wjmintj@163.com
+
+～～～～基本命令
+1. 初始化仓库
+
+> git  init 
+> 意义：将某个项目目录变为git操作目录，生成git本地仓库。即该项目目录可以使用git管理
+
+2. 查看本地仓库状态
+
+> git  status
+> 说明: 初始化仓库后默认工作在master分支，当工作区与仓库区不一致时会有提示。
+
+3. 将工作内容记录到暂存区
+
+> git add [files..]
+
+```
+e.g. 将 a ，b 记录到暂存区
+git add  a b
+
+e.g. 将所有文件（不包含隐藏文件）记录到暂存区
+git add  *
+```
+
+4.取消文件暂存记录
+
+>  git rm --cached [file] 
+
+5. 将文件同步到本地仓库
+
+> git commit [file] -m [message]
+> 说明: -m表示添加一些同步信息，表达同步内容
+
+```
+e.g.  将暂存区所有记录同步到仓库区
+git commit  -m 'add files'
+```
+
+6. 查看commit 日志记录
+
+> git log
+> git log --pretty=oneline
+
+7. 将暂存区或者某个commit点文件恢复到工作区
+
+> git checkout [commit] -- [file]
+>
+> * --是为了防止误操作，checkout还有切换分支的作用
+
+9. 移动或者删除文件
+
+> git  mv  [file] [path]
+> git  rm  [files]
+> 注意: 这两个操作会修改工作区内容，同时将操作记录提交到暂存区。
+
+
+～～～～远程仓库操作命令
+
+所有操作在本地git仓库下进行
+
+1. 添加远程仓库
+
+```
+git remote  add origin https://github.com/xxxxxxxxx
+```
+
+2. 查看连接的主机
+
+>git remote
+>注意: 一个git项目连接的远程主机名不会重复
+
+3. 删除远程主机
+
+>git remote rm [origin]
+
+4. 将本地分支推送给远程仓库
+
+将master分支推送给origin主机远程仓库，第一次推送分支使用-u表示与远程对应分支建立自动关联
+
+```
+git push -u origin  master
+```
+
+5. 推送代码到远程仓库
+
+```
+git push
+```
+
+6. 推送标签
+
+> git push origin [tag]  推送本地标签到远程
+
+> git push origin --tags  推送本地所有标签到远程
+
+7. 推送旧的版本
+
+> git push --force origin  用于本地版本比远程版本旧时强行推送本地版本
+
+8. 删除远程分支和标签
+
+> git branch -a  查看所有分支
+> git push origin  [:branch]  删除远程分支
+> git push origin --delete tag  [tagname]  删除远程仓库标签
+
+9. 从远程获取代码
+
+获取远程分支代码
+
+> git pull 
+
