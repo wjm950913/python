@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- META DATA -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Home</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css" />
+    <!-- Main Style -->
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <!-- Responsive -->
+    <link rel="stylesheet" type="text/css" href="/static/css/responsive.css">
+    <!-- PrettyPhoto -->
+    <link rel="stylesheet" type="text/css" href="/static/css/prettyPhoto.css">
+    <!-- Fancybox -->
+    <link href="/static/css/jquery.fancybox.css" rel="stylesheet" type="text/css" media="screen">
+    <!-- layui -->
+    <link rel="stylesheet" href="/static/assets/css/layui.css">
+    <link rel="stylesheet" href="/static/assets/css/admin.css">
+    <link rel="stylesheet" href="/static/assets/css/layui.css">
+    <link rel="stylesheet" href="/static/assets/css/login.css">
+    <link rel="icon" href="/favicon.ico">
+    <title>管理后台</title>
+</head>
+<body class="login-wrap">
+    <div class="login-container">
+        <div class="login-form" style="width: 1000px">
+<!--            <div class="container">-->
+            	<div id="three-columns" class="grid-container">
+                    <h2 style="text-align: center"> 我的商品 </h2>
+            		<ul class="rig columns-3 gallery2" id="con">
+            		<!-- START ITEM -->
+
+            		<!-- END ITEM -->
+            		</ul>
+					<div style="margin-top: 50px">
+					<button id="to_up" style="margin-bottom: 50px;  width: 40%; float: left;" type="button" class="login-button">上一页<i class="ai ai-enter"></i></button>
+					<h3 id="page" style="margin-left: 11%; text-align: center; float: left;">1</h3>
+					<button id="down" style=" margin-bottom: 50px; width: 40%; float: right;" type="button" class="login-button">下一页<i class="ai ai-enter"></i></button>
+					</div>
+            	</div>
+<!--            </div>-->
+
+    	</div>
+<!--        <img src="../../goods/Firefox_wallpaper.png">-->
+	</div>
+</body>
+<script src="/static/assets/layui.js"></script>
+<script src="/static/assets/index.js" data-main="login"></script>
+<script src="/static/assets/jquery.min.js"></script>
+<script>
+	var page = $('#page').html()
+	$('#to_up').click(function () {
+		console.log('556')
+		page = Number(page)-1
+		$.ajax({
+			type:'post',
+			url:'http://127.0.0.1:8000/user/mygoods',
+			data:JSON.stringify({
+				'page':page,
+				'uname':window.localStorage.getItem('uname')
+			}),
+			dataType:'json',
+			contentType:'application/json',
+			success:function(data){
+				if(data.code == 200){
+					html = ''
+					for(i=0;i<data.count;i++){
+						html = '<li><a href="'
+						html +=data.data[i].pic
+						html+='" class="popup" data-fancybox-group="group2">'
+						html+='<img src="'
+						html += data.data[i].pic
+						html+='" alt="Portfolio" /></a>'
+						html+='<h3>商品名称:<a target="_blank" href="#">'
+						html+=data.data[i].name
+						html+='</a></h3>'
+						html+='<p>库存:'
+						html+=data.data[i].introduce
+						html+='</p>'
+						html+='</li> '
+					}
+					$('#con').html(html)
+				}
+				else{
+					alert(data.error);
+				}
+			},
+			error:function(){
+				console.log('123456');
+			},
+		});
+	});
+	$('#down').click(function () {
+		console.log('556')
+		page = Number(page)+1
+		$.ajax({
+			type:'post',
+			url:'http://127.0.0.1:8000/user/mygoods',
+			data:JSON.stringify({
+				'page':page,
+				'uname':window.localStorage.getItem('uname')
+			}),
+			dataType:'json',
+			contentType:'application/json',
+			success:function(data){
+				if(data.code == 200){
+					html = ''
+					for(i=0;i<data.count;i++){
+						html = '<li><a href="'
+						html +=data.data[i].pic
+						html+='" class="popup" data-fancybox-group="group2">'
+						html+='<img src="'
+						html += data.data[i].pic
+						html+='" alt="Portfolio" /></a>'
+						html+='<h3>商品名称:<a target="_blank" href="#">'
+						html+=data.data[i].name
+						html+='</a></h3>'
+						html+='<p>库存:'
+						html+=data.data[i].introduce
+						html+='</p>'
+						html+='</li> '
+					}
+					$('#con').html(html)
+				}
+				else{
+					alert(data.error);
+				}
+			},
+			error:function(){
+				console.log('123456');
+			},
+		});
+	});
+	$(function(){
+		if(window.localStorage.getItem('uname')){
+			$.ajax({
+		    type:'post',
+		    url:'http://127.0.0.1:8000/user/mygoods',
+		    data:JSON.stringify({
+				'uname':window.localStorage.getItem('uname'),
+		    }),
+		    dataType:'json',
+		    contentType:'application/json',
+		    success:function(data){
+		        if(data.code == 200){
+					html = ''
+					for(i=0;i<data.count;i++){
+						html = '<li><a href="'
+						html +=data.data[i].pic
+						html+='" class="popup" data-fancybox-group="group2">'
+						html+='<img src="'
+						html += data.data[i].pic
+						html+='" alt="Portfolio" /></a>'
+						html+='<h3>商品名称:<a target="_blank" href="#">'
+						html+=data.data[i].name
+						html+='</a></h3>'
+						html+='<p>库存:'
+						html+=data.data[i].introduce
+						html+='</p>'
+						html+='</li> '
+					}
+		            $('#con').html(html)
+					$('#page').html(data.page)
+		        }
+		        else{
+		            alert(data.error);
+		        }
+		    },
+		    error:function(){
+		        console.log('123456');
+		    },
+		});
+		}
+
+	});
+</script>
+</html>

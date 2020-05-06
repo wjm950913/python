@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<script src="/static/js/jquery.min.js"></script>
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+<body>
+ <div  id='myfrom' style="align-content: center;width: 50%;display: inline-block;position: relative;">
+        <form method="post" action="http://127.0.0.1:8000/me/update" enctype="multipart/form-data">
+        <input class="form-control"  type="text" name="title" placeholder="输入新的商品名称"><br>
+        <input class="form-control" type="number" name="price" placeholder="输入新的价格："><br>
+        
+        <input class="form-control" type="text" name="key" placeholder="输入新的关键字"><br>
+        <input class="form-control" type="text" name="introduce" placeholder="输入修改后的简介"><br>
+        <input id='mytoken' type="text" hidden value="nihao" name="token">
+        <input id='GoodId' type="text" hidden value="haha" name="GoodId">
+      {% csrf_token %}
+       
+        <button >提交</button>
+
+
+         </form>
+
+         <!-- <img style="position: absolute;right: -60%;top: 0;width: 500px; height: 70%;" src="/static/images/goods.jpg" alt=""> -->
+</div>
+
+<script>
+var good_id=window.location.search
+        if(good_id){
+          good_id=good_id.split('=')[1]
+        }else{
+          alert('error')
+        }
+$("#GoodId").val(good_id)
+
+
+   //    $("#mytoken").val(window.localStorage.getItem('token'))  //获取本地token
+   $("#mytoken").val(1)
+</script>
+
+
+
+
+</body>
+</html>

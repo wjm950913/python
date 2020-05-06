@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static/assets/css/layui.css">
+    <link rel="stylesheet" href="/static/assets/css/login.css">
+    <link rel="icon" href="/favicon.ico">
+    <title>管理后台</title>
+</head>
+<body class="login-wrap">
+    <div class="login-container">
+        <div class="login-form">
+            <div class="input-group">
+                <input type="text" id="username" class="input-field">
+                <label for="username" class="input-label">
+                    <span class="label-title">用户名</span>
+                </label>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" class="input-field">
+                <label for="password" class="input-label">
+                    <span class="label-title">密码</span>
+                </label>
+            </div>
+	<!-- 		<div class="input-group">
+			    <input type="password" id="password" class="input-field">
+			    <label for="password" class="input-label">
+			        <span class="label-title">确认密码</span>
+			    </label>
+			</div> -->
+            <button type="button" id="submit" class="login-button">注册<i class="ai ai-enter"></i></button>
+        </div>
+    </div>
+</body>
+<script src="/static/assets/layui.js"></script>
+<script src="/static/assets/jquery.min.js"></script>
+<script>
+	$('#submit').click(function(){
+		$.ajax({
+		    type:'post',
+		    url:'http://127.0.0.1:8000/user/register',
+		    data:JSON.stringify({
+		        'username':$('#username').val(),
+				'password':$('#password').val(),
+		    }),
+		    dataType:'json',
+		    contentType:'application/json',
+		    success:function(data){
+		        if(data.code == 200){
+		            window.localStorage.setItem('token',data.data.token)
+                    window.localStorage.setItem('uname',data.data.uname)
+		            alert('注册成功!');
+		            window.location.href = 'http://127.0.0.1:8000/user/personal';
+		        }
+		        else{
+		            alert(data.error);
+		        }
+		    },
+		    error:function(){
+		        alert('服务器正忙!请稍后再试!');
+		    },
+		});
+	});
+</script>
+<!-- <script src="index.js" data-main="login"></script> -->
+</html>

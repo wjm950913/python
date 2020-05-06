@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发布内容</title>
+    <script src="/static/js/jquery.min.js"></script>
+</head>
+
+<body>
+<form id="addForm" action="/topic/publish" method="post">
+    <input type="text" id="title" name="title" size="20" maxlength="20" placeholder="请输入标题"/>
+    <br>
+    <input type="text" id="topic" name="topic" size="200" maxlength="2000" placeholder="请输入不多于2000字的内容"/>
+</form>
+<button type="button" id="submitAdd">提交</button>
+<script type="text/javascript">
+  $("#submitAdd").click(function(){
+  var targetUrl = $("#addForm").attr("action");
+  var title = $("#title").val();
+  var topic = $("#topic").val();
+  var uname = window.localStorage.getItem('uname')
+  var data = {'title':title, 'topic':topic,'uname':uname};
+<!--  console.log(data)-->
+   $.ajax({
+                    type: 'POST',
+                    url: targetUrl,
+                    contentType:'application/json',
+                    data: JSON.stringify(data),
+                    success: function (result) {
+                        if (result.code == 200) {
+                            alert('success');
+                            window.location.href = 'index';
+                        } else {
+                            alert('error');
+                        }
+                    }
+                });
+})
+</script>
+</body>
+</html>

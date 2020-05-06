@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- META DATA -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Home</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css" />
+    <!-- Main Style -->
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <!-- Responsive -->
+    <link rel="stylesheet" type="text/css" href="/static/css/responsive.css">
+    <!-- PrettyPhoto -->
+    <link rel="stylesheet" type="text/css" href="/static/css/prettyPhoto.css">
+    <!-- Fancybox -->
+    <link href="/static/css/jquery.fancybox.css" rel="stylesheet" type="text/css" media="screen">
+    <!-- layui -->
+    <link rel="stylesheet" href="/static/assets/css/layui.css">
+    <link rel="stylesheet" href="/static/assets/css/admin.css">
+    <link rel="stylesheet" href="/static/assets/css/layui.css">
+    <link rel="stylesheet" href="/static/assets/css/login.css">
+    <link rel="icon" href="/favicon.ico">
+    <title>管理后台</title>
+</head>
+<body class="login-wrap">
+    <div class="login-container">
+        <div class="login-form news">
+			<div id="start">
+			</div>
+<!--			<div style="background-color: rosybrown;">-->
+<!--				<span>xxx给</span>-->
+<!--				<span>xxx留下评论</span>-->
+<!--				<a style="float: right;" href="#">查看文章</a>-->
+<!--			</div>-->
+			<br>
+<!--            <button type="button" class="login-button"><a href="#">返回顶部</a><i class="ai ai-enter"></i></button>-->
+        </div>
+    </div>
+</body>
+<script src="/static/assets/layui.js"></script>
+<script src="/static/assets/index.js" data-main="login"></script>
+<script src="/static/assets/jquery.min.js"></script>
+<script>
+	$(function(){
+		if(window.localStorage.getItem('uname')){
+			$.ajax({
+		    type:'post',
+		    url:'http://127.0.0.1:8000/user/myreleases',
+		    data:JSON.stringify({
+				'uname':window.localStorage.getItem('uname')
+		    }),
+		    dataType:'json',
+		    contentType:'application/json',
+		    success:function(data){
+		        if(data.code == 200){
+					for(i=0;i<data.count;i++){
+						//
+						html = ''
+						html = "<div>"
+						html+="<span>"
+						html+=data.data[i].one
+						html+="</span>"
+						html+=data.data[i].con
+						html += '<a style="float: right;" href="'+data.data[i].href+'">查看文章</a>'
+						html+="</div><br><hr>"
+						$('#start').before(html);
+					}
+		        }
+		        else{
+		            alert(data.error);
+		        }
+		    },
+		    error:function(){
+		        console.log('123456');
+		    },
+		});
+		}
+
+	});
+</script>
+</html>
