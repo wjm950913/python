@@ -21,5 +21,4 @@ urlpatterns = [
     url(r'^me', include('me.urls')),
     url(r'^user', include('user.urls')),
     url(r'^topic', include('forum.urls')),
-    url(r'^comment', include('forum.urls')),
 ]

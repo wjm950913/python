@@ -20,7 +20,7 @@
   var topic = $("#topic").val();
   var uname = window.localStorage.getItem('uname')
   var data = {'title':title, 'topic':topic,'uname':uname};
-<!--  console.log(data)-->
+
    $.ajax({
                     type: 'POST',
                     url: targetUrl,
