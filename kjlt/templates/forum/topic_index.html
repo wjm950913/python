@@ -43,7 +43,7 @@
 <div id="title1" class="title"></div><span id="uname1"></span>
 <div id="msg1" class="msg"></div>
 <div class="comment" id='com1'></div>
-<form id="addForm" action="/topic/send" method="post">
+<form class="addForm" action="/topic/send" method="post">
     <input type="text" id="comment1" name="comment1" size="75" maxlength="150" placeholder="请输入不多于150字的内容"/>
 </form>
 <button type="button" id="submitAdd1">发布评论</button>
@@ -52,7 +52,7 @@
 <div id="title2" class="title"></div><span id="uname2"></span>
 <div id="msg2" class="msg"></div>
 <div class="comment" id='com2'></div>
-<form id="addForm" action="/topic/send" method="post">
+<form class="" addForm" action="/topic/send" method="post">
     <input type="text" id="comment2" name="comment2" size="75" maxlength="150" placeholder="请输入不多于150字的内容"/>
 </form>
 <button type="button" id="submitAdd2">发布评论</button>
@@ -61,7 +61,7 @@
 <div id="title3" class="title"></div><span id="uname3"></span>
 <div id="msg3" class="msg"></div>
 <div class="comment" id='com3'></div>
-<form id="addForm" action="/topic/send" method="post">
+<form class="addForm" action="/topic/send" method="post">
     <input type="text" id="comment3" name="comment3" size="75" maxlength="150" placeholder="请输入不多于150字的内容"/>
 </form>
 <button type="button" id="submitAdd3">发布评论</button>
@@ -70,7 +70,7 @@
 <div id="title4" class="title"></div><span id="uname4"></span>
 <div id="msg4" class="msg"></div>
 <div class="comment" id='com4'></div>
-<form id="addForm" action="/topic/send" method="post">
+<form class="addForm" action="/topic/send" method="post">
     <input type="text" id="comment4" name="comment4" size="75" maxlength="150" placeholder="请输入不多于150字的内容"/>
 </form>
 <button type="button" id="submitAdd4">发布评论</button>
@@ -79,7 +79,7 @@
 <div id="title5" class="title"></div><span id="uname5"></span>
 <div id="msg5" class="msg"></div>
 <div class="comment" id='com5'></div>
-<form id="addForm" action="/topic/send" method="post">
+<form class="addForm" action="/topic/send" method="post">
     <input type="text" id="comment5" name="comment5" size="75" maxlength="150" placeholder="请输入不多于150字的内容"/>
 </form>
 <button type="button" id="submitAdd5">发布评论</button>
@@ -118,15 +118,14 @@
                         $('#com4').html(data_dict['comment4'])
                         $('#com5').html(data_dict['comment5'])
                         }
-
               });
 
-              $("#submitAdd1").click(function(){
-  var targetUrl = $("#addForm").attr("action");
+    $("#submitAdd1").click(function(){
+  var targetUrl = $(".addForm").attr("action");
   var comment = $("#comment1").val();
   var uname = window.localStorage.getItem('uname')
-  var topic_uname = $("#uname1").text()
-  var data = {'comment':comment,'uname':uname,'topic_uname':topic_uname};
+  var title = $("#title1").text()
+  var data = {'comment':comment,'uname':uname,'title':title};
 
    $.ajax({
                     type: 'POST',
@@ -144,11 +143,11 @@
                 });
 })
 $("#submitAdd2").click(function(){
-  var targetUrl = $("#addForm").attr("action");
+  var targetUrl = $(".addForm").attr("action");
   var comment = $("#comment2").val();
   var uname = window.localStorage.getItem('uname')
-  var topic_uname = $("#uname2").text()
-  var data = {'comment':comment,'uname':uname,'topic_uname':topic_uname};
+  var title = $("#title2").text()
+  var data = {'comment':comment,'uname':uname,'title':title};
 
    $.ajax({
                     type: 'POST',
@@ -166,11 +165,11 @@ $("#submitAdd2").click(function(){
                 });
 })
 $("#submitAdd3").click(function(){
-  var targetUrl = $("#addForm").attr("action");
+  var targetUrl = $(".addForm").attr("action");
   var comment = $("#comment3").val();
   var uname = window.localStorage.getItem('uname')
-  var topic_uname = $("#uname3").text()
-  var data = {'comment':comment,'uname':uname,'topic_uname':topic_uname};
+  var title = $("#title3").text()
+  var data = {'comment':comment,'uname':uname,'title':title};
 
    $.ajax({
                     type: 'POST',
@@ -188,11 +187,11 @@ $("#submitAdd3").click(function(){
                 });
 })
 $("#submitAdd4").click(function(){
-  var targetUrl = $("#addForm").attr("action");
+  var targetUrl = $(".addForm").attr("action");
   var comment = $("#comment4").val();
   var uname = window.localStorage.getItem('uname')
-  var topic_uname = $("#uname4").text()
-  var data = {'comment':comment,'uname':uname,'topic_uname':topic_uname};
+  var title = $("#title4").text()
+  var data = {'comment':comment,'uname':uname,'title':title};
 
    $.ajax({
                     type: 'POST',
@@ -210,11 +209,11 @@ $("#submitAdd4").click(function(){
                 });
 })
 $("#submitAdd5").click(function(){
-  var targetUrl = $("#addForm").attr("action");
+  var targetUrl = $(".addForm").attr("action");
   var comment = $("#comment5").val();
   var uname = window.localStorage.getItem('uname')
-  var topic_uname = $("#uname5").text()
-  var data = {'comment':comment,'uname':uname,'topic_uname':topic_uname};
+  var title = $("#title5").text()
+  var data = {'comment':comment,'uname':uname,'title':title};
 
    $.ajax({
                     type: 'POST',

@@ -52,7 +52,7 @@ def indexview(request):
 
         data_dict = {'title1': title1, 'title2': title2, 'title3': title3, 'title4': title4, 'title5': title5,
                      'msg1': msg1, 'msg2': msg2, 'msg3': msg3, 'msg4': msg4, 'msg5': msg5,
-                     'uname1': uname1, 'uuname': uname2, 'uname3': uname3, 'uname4': uname4, 'uname5': uname5,
+                     'uname1': uname1, 'uname2': uname2, 'uname3': uname3, 'uname4': uname4, 'uname5': uname5,
                      }
 
         comment1 = comment.objects.filter(topic_id_id=topic_id1)
@@ -61,12 +61,27 @@ def indexview(request):
         comment4 = comment.objects.filter(topic_id_id=topic_id4)
         comment5 = comment.objects.filter(topic_id_id=topic_id5)
 
-        print(comment1)
+        try:
+            data_dict['comment1'] = comment1[0].content
+        except:
+            data_dict['comment1'] = '暂无评论'
+        try:
+            data_dict['comment2'] = comment2[0].content
+        except:
+            data_dict['comment2'] = '暂无评论'
+        try:
+            data_dict['comment3'] = comment3[0].content
+        except:
+            data_dict['comment3'] = '暂无评论'
+        try:
+            data_dict['comment4'] = comment4[0].content
+        except:
+            data_dict['comment4'] = '暂无评论'
+        try:
+            data_dict['comment5'] = comment5[0].content
+        except:
+            data_dict['comment5'] = '暂无评论'
 
-        for i in range(len(comment1)):
-            data_dict['comment1'] = comment1[i]
-
-        print(data_dict)
         return JsonResponse(data_dict)
 
 
@@ -85,9 +100,11 @@ def topic_publish(request):
         topic = req_data['topic']
         uname = req_data['uname']
         if title and topic:
-            user_id_id = User.objects.filter(uname=uname)[0].id
-            Topic.objects.create(title=title, msg=topic, user_id_id=user_id_id)
-            return JsonResponse({'code': 200})
+            title_pd = Topic.objects.filter(title=title)
+            if not title_pd:
+                user_id_id = User.objects.filter(uname=uname)[0].id
+                Topic.objects.create(title=title, msg=topic, user_id_id=user_id_id)
+                return JsonResponse({'code': 200})
         return JsonResponse({'code': 201})
 
 
@@ -104,10 +121,9 @@ def comment_send(request):
     req_data = json.loads(request.body)
     content = req_data['comment']
     uname = req_data['uname']
-    topic_uname = req_data['topic_uname']
+    title = req_data['title']
     if comment:
-        topic_user_id = User.objects.filter(uname=topic_uname)[0].id
-        topic_id_id = Topic.objects.filter(user_id=topic_user_id)[0].id
+        topic_id_id = Topic.objects.filter(title=title)[0].id
         user_id_id = User.objects.filter(uname=uname)[0].id
         comment.objects.create(content=content, topic_id_id=topic_id_id, user_id_id=user_id_id)
         return JsonResponse({'code': 200})

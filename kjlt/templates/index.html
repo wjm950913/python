@@ -36,6 +36,13 @@
 
     <!-- 背景图片 -->
     <style type="text/css">
+    iframe{
+        margin-left:300px;
+        margin-top:100px;
+        width: 800px;
+        height: 2000px;
+    }
+
 	#home_bg{
 		background-image: url(/static/images/bg3.jpg);
 		background-repeat: no-repeat;
@@ -488,47 +495,8 @@
                 <!--                							</div>-->
                 <!--                						</div>-->
                 <!--                				</div>-->
-                <div class="login-container">
-                    <div class="login-form" style="width: 1000px">
-                        <!--            <div class="container">-->
-                        <div class="grid-container">
-                            <h2 style="text-align: center"> 我的文章 </h2>
-                            <ul class="rig columns-3 gallery2" id="con">
-                                <!-- START ITEM -->
-
-                                <!-- END ITEM -->
-                            </ul>
-                            <div style="margin-top: 50px">
-                                <button id="to_up" style="margin-bottom: 50px;  width: 40%; float: left;" type="button"
-                                        class="login-button">上一页<i class="ai ai-enter"></i></button>
-                                <h3 id="page" style="margin-left: 11%; text-align: center; float: left;">1</h3>
-                                <button id="down" style=" margin-bottom: 50px; width: 40%; float: right;" type="button"
-                                        class="login-button">下一页<i class="ai ai-enter"></i></button>
-                            </div>
-                        </div>
-                        <script>
-                            $.ajax({
-                                type: 'POST',
-                                url: targetUrl,
-                                contentType:'application/json',
-                                datatype:'json'
-                                data: JSON.stringify(data),
-                                success: function (result) {
-                                    if (result.code == 200) {
-                                        alert('success');
-                                        window.location.href = 'index';
-                                    } else {
-                                        alert('error');
-                                    }
-                                }
-                            });
-
-                        </script>
-                        <!--            </div>-->
-
-                    </div>
-                    <!--        <img src="../../goods/Firefox_wallpaper.png">-->
-                </div>
+                <iframe src="http://127.0.0.1:8000/topic/index"  width="50%"
+        height="70%" scrolling="yes"></iframe>
             </section>
             <div class="arrow">
             </div>
